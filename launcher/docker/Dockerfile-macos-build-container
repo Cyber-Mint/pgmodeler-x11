@@ -1,0 +1,38 @@
+FROM rust:1-stretch
+LABEL maintainer="Michael van Niekerk <mvniekerk@gmail.com>"
+
+# Copy the osxcross toolchain tarball
+WORKDIR /opt
+COPY --from=osxcross:10.8 /opt/osxcross-build.tar.bz2 ./
+RUN tar -xvjf osxcross-build.tar.bz2
+WORKDIR /
+
+
+ENV PATH $PATH:/opt/osxcross/target/bin
+
+ENV OSXCROSS_SDK_VERSION 10.8
+ENV MACOSX_DEPLOYMENT_TARGET 10.8
+
+RUN rustup target add x86_64-apple-darwin
+
+# Install libgtk3 using MacPorts
+RUN mkdir -p /opt/osxcross/target/macports; echo 'http://packages.macports.org': > /opt/osxcross/target/macports/MIRROR
+RUN omp upgrade ; omp search $ ; omp install gtk3
+
+RUN apt-get update && apt-get install -yy libgtk-3-dev clang
+RUN ln -s /usr/lib/llvm-3.8/lib/libLTO.so /usr/lib/
+
+# Setup Rust to use Apple linker and to use the Macports directory
+RUN mkdir ~/.cargo; rustup target add x86_64-apple-darwin; echo "[target.x86_64-apple-darwin]" >> ~/.cargo/config; \
+ echo 'linker = "o64-clang"' >> ~/.cargo/config; \
+ echo 'rustflags = ["-L/opt/osxcross/target/macports/pkgs/opt/local/lib"]' >> ~/.cargo/config;
+
+ENV MACOS_TARGET "x86_64-apple-darwin"
+ENV LIBZ_SYS_STATIC 1
+ENV CC o64-clang
+ENV CXX o64-clang++
+
+ENV PKG_CONFIG_ALLOW_CROSS 1
+RUN mkdir /project
+WORKDIR /project
+CMD /bin/bash

@@ -1,0 +1,6 @@
+docker/
+.idea/
+launcher.iml
+target/
+build.sh
+resources/

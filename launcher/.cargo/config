@@ -1,0 +1,3 @@
+[target.x86_64-apple-darwin]
+linker = "o64-clang"
+rustflags = ["-L/opt/osxcross/target/macports/pkgs/opt/local/lib"]
