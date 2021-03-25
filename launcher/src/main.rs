@@ -198,7 +198,7 @@ fn user_name() -> Result<String, ()> {
 fn run_pgmodeler(display_variable: String, user_id: String, user_name: String, application: &gtk::Application) {
     let pgmodeler_version = match var("PGMODELER_VERSION") {
         Ok(ver) => format!("{}", ver),
-        Err(_e) => "v0.9.2-beta".to_string()
+        Err(_e) => "0.9.3-beta".to_string()
     };
     let pgmodeler_conf_dir = format!("/home/{}/.pgmodeler-docker-x11/{}", user_name, pgmodeler_version);
     let pgmodeler_conf_dir = pgmodeler_conf_dir.as_str();
@@ -266,7 +266,7 @@ fn run_pgmodeler(display_variable: String, user_id: String, user_name: String, a
 fn run_pgmodeler(display_variable: String, user_id: String, user_name: String, application: &gtk::Application) {
     let pgmodeler_version = match var("PGMODELER_VERSION") {
         Ok(ver) => format!("{}", ver),
-        Err(_e) => "v0.9.2-beta".to_string()
+        Err(_e) => "0.9.3-beta".to_string()
     };
     let pgmodeler_conf_dir = format!("/Users/{}/.pgmodeler-docker-x11/{}", user_name, pgmodeler_version);
     let pgmodeler_conf_dir = pgmodeler_conf_dir.as_str();

@@ -1,0 +1,50 @@
+version: "3.2"
+
+services:
+  pg:
+    container_name: postgresql
+    networks:
+      - design-net
+    image: postgres:alpine
+    restart: always
+    ports:
+      - "127.0.0.1:5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=postgres
+      - POSTGRES_PASSWORD=postgres
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -h localhost"]
+      interval: 20s
+      timeout: 5s
+      retries: 5
+    security_opt:
+      - no-new-privileges:true
+    ulimits:
+      nproc: 65535
+      nofile:
+        soft: 20000
+        hard: 40000
+
+  pgmodeler:
+    container_name: pgmodeler
+    networks:
+      - design-net
+    image: cybermint/pgmodeler
+    user: "$USERID"
+    working_dir: $WORKING_DIR
+    environment:
+      - DISPLAY=unix$DISPLAY
+    volumes:  
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - /home/$USER:/home/$USER
+      - /etc/group:/etc/group:ro
+      - /etc/passwd:/etc/passwd:ro
+      - /etc/shadow:/etc/shadow:ro
+      - /etc/sudoers.d:/etc/sudoers.d:ro
+
+networks:
+  design-net:
+
+volumes:
+  pgdata:

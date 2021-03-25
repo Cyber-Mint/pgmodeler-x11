@@ -14,6 +14,19 @@ Build and run the latest version of [pgModeler](https://pgmodeler.io/) inside a 
 > -- https://github.com/mvniekerk
 > -- https://github.com/bank-builder
 
+## Quickstart
+
+Use the [docker-compose](./docker-compose.yml) found here to spin up a self contained pgmodeler and database for design purposes.
+
+```
+# add exports to ~/.bashrc
+export USERID=$(id -u)
+export WORKING_DIR=$(pwd)
+docker-compose up -d
+# and cleanup nicely when done
+docker-compose down --remove-orphans
+```
+
 ## Why?
 
 * Because building pgModeler is harder than it should be.
