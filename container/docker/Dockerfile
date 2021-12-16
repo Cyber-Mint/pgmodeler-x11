@@ -7,18 +7,19 @@ ARG PGMODELER_VERSION=v0.9.4-beta1
 ENV PGMODELER_VERSION=$PGMODELER_VERSION
 
 RUN echo "${PGMODELER_VERSION}"
-RUN apt update
-RUN DEBIAN_FRONTEND=noninteractive apt install -y --no-install-recommends tzdata
-RUN DEBIAN_FRONTEND=noninteractive apt install -y curl clang checkinstall build-essential
-RUN DEBIAN_FRONTEND=noninteractive apt install -y qt5-default
-RUN DEBIAN_FRONTEND=noninteractive apt install -y libpq-dev pkg-config
-RUN DEBIAN_FRONTEND=noninteractive apt install -y libxml2-dev
-RUN DEBIAN_FRONTEND=noninteractive apt install -y qttools5-dev-tools
-RUN DEBIAN_FRONTEND=noninteractive apt install -y qt5-image-formats-plugins
-RUN DEBIAN_FRONTEND=noninteractive apt install -y libqt5svg5
-RUN DEBIAN_FRONTEND=noninteractive apt install -y libqt5svg5-dev 
-RUN DEBIAN_FRONTEND=noninteractive apt install -y ca-certificates curl software-properties-common unzip
-RUN DEBIAN_FRONTEND=noninteractive apt install -y qttools5-dev 
+RUN apt-get update
+RUN DEBIAN_FRONTEND=noninteractive apt-get install apt-utils
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends tzdata
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y curl clang checkinstall build-essential
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y qt5-default
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y libpq-dev pkg-config
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y libxml2-dev
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y qttools5-dev-tools
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y qt5-image-formats-plugins
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y libqt5svg5
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y libqt5svg5-dev 
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y ca-certificates curl software-properties-common unzip
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y qttools5-dev 
 
 RUN mkdir /source
 WORKDIR /source
@@ -41,5 +42,5 @@ FROM ubuntu:20.04
 COPY --from=BUILD /source/pgmodeler/dist/pgmodeler.tar.gz /opt/
 WORKDIR /opt
 RUN mkdir -p /var/cache/apt/archives/partial; tar -xvzf pgmodeler.tar.gz; mv pgmodeler.tar.gz /pgmodeler.tar.gz; mv pgmodeler* pgmodeler; \
-   apt update; apt install -y libxml2 libgl1 libpng16-16 libharfbuzz-gobject0 libqt5gui5 libpq5; apt-get clean; rm -rf /var/cache /pgmodeler.tar.gz
+   apt-get update; apt-get install -y libxml2 libgl1 libpng16-16 libharfbuzz-gobject0 libqt5gui5 libpq5; apt-get clean; rm -rf /var/cache /pgmodeler.tar.gz
 CMD /opt/pgmodeler/pgmodeler
