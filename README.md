@@ -2,7 +2,7 @@
 > Forked from fossabot/pgmodeler-x11 2019
 
 ## What's this?
-Build and run the latest version of [pgModeler](https://pgmodeler.io/) inside a  Docker container on Linux (& macOS).
+Build and run the latest version of [pgModeler](https://pgmodeler.io/) inside a  Docker container on Linux (& macOS) - **0.9.4-beta1**.
 
 
 > This project is also an example of creating a build environment that does
