@@ -22,7 +22,7 @@ Just cut and past this at the command line:
 docker run --rm -it --user $(id -u) -e DISPLAY=unix$DISPLAY --workdir=$(pwd) --volume="/home/$USER:/home/$USER" --volume="/etc/group:/etc/group:ro" --volume="/etc/passwd:/etc/passwd:ro" --volume="/etc/shadow:/etc/shadow:ro" --volume="/etc/sudoers.d:/etc/sudoers.d:ro" -v /tmp/.X11-unix:/tmp/.X11-unix cybermint/pgmodeler
 ```
 
-Further Docker only instructions (ie not building or source code required) can be found [here]().
+Further Docker only instructions (ie not building or source code required) can be found [here](docker-only.md).
 
 
 ## Why?
