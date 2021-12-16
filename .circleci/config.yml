@@ -5,7 +5,7 @@ jobs:
       - image: docker
     environment:
       IMAGE_NAME: cybermint/pgmodeler
-      PGMODELER_VERSION: 0.9.3-beta
+      PGMODELER_VERSION: 0.9.4-beta1
     working_directory: ~/pgmodeler-docker
     steps:
       - checkout

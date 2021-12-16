@@ -11,7 +11,7 @@ Build and run the latest version of [pgModeler](https://pgmodeler.io/) inside a 
 >   
 > Maitainers:
 > ===========
-> -- https://github.com/mvniekerk
+> -- https://github.com/mvniekerk <br>
 > -- https://github.com/bank-builder
 
 ## Quickstart
