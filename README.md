@@ -2,7 +2,7 @@
 > Forked from fossabot/pgmodeler-x11 2019
 
 ## What's this?
-Build and run the latest version of [pgModeler](https://pgmodeler.io/) inside a  Docker container on Linux (& macOS).
+Build and run the latest version of [pgModeler](https://pgmodeler.io/) inside a  Docker container on Linux (& macOS) - **0.9.4-beta1**.
 
 
 > This project is also an example of creating a build environment that does
@@ -11,25 +11,25 @@ Build and run the latest version of [pgModeler](https://pgmodeler.io/) inside a 
 >   
 > Maitainers:
 > ===========
-> -- https://github.com/mvniekerk
+> -- https://github.com/mvniekerk <br>
 > -- https://github.com/bank-builder
 
 ## Quickstart
 
-Use the [docker-compose](./docker-compose.yml) found here to spin up a self contained pgmodeler and database for design purposes.
+Just cut and past this at the command line:
 
 ```
-# add exports to ~/.bashrc
-export USERID=$(id -u)
-export WORKING_DIR=$(pwd)
-docker-compose up -d
-# and cleanup nicely when done
-docker-compose down --remove-orphans
+docker run --rm -it --user $(id -u) -e DISPLAY=unix$DISPLAY --workdir=$(pwd) --volume="/home/$USER:/home/$USER" --volume="/etc/group:/etc/group:ro" --volume="/etc/passwd:/etc/passwd:ro" --volume="/etc/shadow:/etc/shadow:ro" --volume="/etc/sudoers.d:/etc/sudoers.d:ro" -v /tmp/.X11-unix:/tmp/.X11-unix cybermint/pgmodeler
 ```
+
+Further Docker only instructions (ie not building or source code required) can be found [here](docker-only.md).
+
 
 ## Why?
 
 * Because building pgModeler is harder than it should be.
+
+> v0.9.4-beta1 has some significant changes on previous versions, and some of these bits of advice may longer apply, however thanks to Michael we have a working docker release.
 
 * Because most distros are behind in their pgModeler version and/or don't have an easy way of getting the latest release - this gives another docker-based option to easily get a modern up-to-date pgModeler version. 
 
@@ -58,8 +58,11 @@ The launcher compiles and links inside a container that has [Macports](https://w
 
 [TODO implement https://wiki.gnome.org/Projects/GTK/OSX/Bundling] 
 
+<br>
 
-## Prerequisites
+---
+
+## Building Prerequisites
 ### Linux
 * Docker
 
@@ -75,6 +78,8 @@ This will create an image: `pgmodeler-docker-x11/run`.
 
 This will take ~15 minutes.
 
+> As service to the community Cyber-Mint makes this available on docker hub - `git pull cybermint/pgmodeler`
+
 ## Build and install the launcher
 **\*\* Currently Linux Only \*\***
 
@@ -82,7 +87,19 @@ In the `launcher` directory, run `./build.sh <platform>` where platform is linux
 
 Only Linux actually installs it now (for now). For macOs the binary is built but then needs to be run from the command line and have gtk3 installed (see "macOS Packaging").
 
-When the Linux build finishes, it will create a .desktop entry in your /usr/share/applications/ directory, which means you can run pgModeler from your application launcher.
+When the Linux build finishes, it will create a `/usr/share/applications/pgmodeler-docker-x11.desktop` entry, which means you can run pgModeler from your application launcher. See that wonderful elephant in your launcher!
+
+![pgmodeler_logo](launcher/resources/pgmodeler_logo.png)
+
+
+---
+**Note** that if you wish to use the docker-compose found [here](./docker-compose.yml), it needs the following to be set:
+```
+# add exports to ~/.bashrc
+export USERID=$(id -u)
+export WORKING_DIR=$(pwd)
+```
+---
 
 ## Run without the launcher
 The launcher looks at your environment and then runs the command below and lets you know if something goes wrong. 

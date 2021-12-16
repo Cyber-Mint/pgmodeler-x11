@@ -4,7 +4,7 @@
 case `uname -m` in
   "x86_64")
     ARCH="linux64"
-    FALLBACK_QT_ROOT=/opt/qt-5.12.8/5.12.8/gcc_64
+    FALLBACK_QT_ROOT=/opt/qt/5.15.2/gcc_64
     FALLBACK_QMAKE_ROOT="$FALLBACK_QT_ROOT/bin"
     ;;
 
@@ -16,22 +16,22 @@ case `uname -m` in
 esac
 
 # Uncomment this line if you want to compile using LLVM (clang) compiler tools
-# QMAKE_ARGS="-r -spec linux-clang"
+QMAKE_ARGS="pgmodeler.pro -r -spec linux-clang"
 
 # Comment this one if you've decided to use LLVM
-QMAKE_ARGS="-r -spec linux-g++"
+#QMAKE_ARGS="pgmodeler.pro -r -spec linux-g++"
 QMAKE_ROOT=/usr/bin
 QMAKE_CMD=qmake
 LOG="$PWD/linuxdeploy.log"
 QT_IFW_ROOT=/opt/qt/Tools/QtInstallerFramework/3.2
 
 # Detecting current pgModeler version
-DEPLOY_VER=`cat libutils/src/globalattributes.cpp | grep PgModelerVersion | sed 's/.\+PgModelerVersion=QString("//g' | sed 's/")\;//g' | sed 's/^ *//g'`
+DEPLOY_VER=`cat libs/libutils/src/globalattributes.cpp | grep PgModelerVersion | sed 's/.\+PgModelerVersion=QString("//g' | sed 's/")//g' | sed 's/^ *//g'`
 
 BUILD_DIR="$PWD/build"
 DIST_DIR="$PWD/dist"
-INSTALL_ROOT="/opt/pgModeler"
-FMT_PREFIX="\/opt\/pgModeler"
+INSTALL_ROOT="/opt/pgmodeler"
+FMT_PREFIX="\/opt\/pgmodeler"
 INSTALLER_APP_VER=`echo $DEPLOY_VER | cut -d '-' -f1`
 INSTALLER_CONF_DIR="$PWD/installer/template/config"
 INSTALLER_PKG_DIR="$PWD/installer/template/packages"
@@ -182,16 +182,16 @@ else
            libQt5Core.so.5 \
            libQt5XcbQpa.so.5 \
            libQt5Svg.so.5 \
-           libicui18n.so.5* \
-           libicuuc.so.5* \
-           libicudata.so.5*"
+           libicui18n.so.6* \
+           libicuuc.so.6* \
+           libicudata.so.6*"
 fi
 
 clear 
 echo 
 echo "pgModeler Linux deployment script"
 echo "PostgreSQL Database Modeler Project - pgmodeler.io"
-echo "Copyright 2006-2020 Raphael A. Silva <raphael@pgmodeler.io>"
+echo "Copyright 2006-2021 Raphael A. Silva <raphael@pgmodeler.io>"
 
 # Identifying System Qt version
 if [ -e "$QMAKE_ROOT/$QMAKE_CMD" ]; then
@@ -286,7 +286,7 @@ fi
 make distclean  >> $LOG 2>&1
 
 echo "Running qmake..."
-$QMAKE_ROOT/$QMAKE_CMD $QMAKE_ARGS  >> $LOG 2>&1
+$QMAKE_ROOT/$QMAKE_CMD $QMAKE_ARGS 
 
 if [ $? -ne 0 ]; then
   echo
@@ -296,7 +296,7 @@ if [ $? -ne 0 ]; then
 fi
 
 echo "Compiling code..."
-make -j10  >> $LOG 2>&1
+make -j2
 
 if [ $? -ne 0 ]; then
   echo
