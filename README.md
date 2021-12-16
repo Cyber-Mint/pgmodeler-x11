@@ -9,7 +9,7 @@ Build and run the latest version of [pgModeler](https://pgmodeler.io/) inside a 
 > cross-platform UI compilation from inside Docker, compiling using GTK and
 > Rust. i.e. it is a mechanism to build Linux and macOS binaries in Docker.
 >   
-> Maitainers:
+> Maintainers:
 > ===========
 > -- https://github.com/mvniekerk <br>
 > -- https://github.com/bank-builder
