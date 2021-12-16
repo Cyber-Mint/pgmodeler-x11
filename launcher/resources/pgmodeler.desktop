@@ -1,3 +1,4 @@
+#!/usr/bin/env xdg-open
 [Desktop Entry]
 Name=pgmodeler-docker-x11
 GenericName=PostgreSQL ER Database Modeler running inside Docker

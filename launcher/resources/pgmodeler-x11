@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+echo "starting pgmodeler-x11"
+docker run --rm -it --user $(id -u) --name pgmodeler -e DISPLAY=unix$DISPLAY --workdir=$(pwd) --volume="/home/$USER:/home/$USER" --volume="/etc/group:/etc/group:ro" --volume="/etc/passwd:/etc/passwd:ro" --volume="/etc/shadow:/etc/shadow:ro" --volume="/etc/sudoers.d:/etc/sudoers.d:ro" -v /tmp/.X11-unix:/tmp/.X11-unix cybermint/pgmodeler
+echo "cleaning up"
+docker rm pgmodeler > /dev/null 2>&1
+echo "---"
+echo "Courtesy of Cyber-Mint (Pty) Ltd ..."
